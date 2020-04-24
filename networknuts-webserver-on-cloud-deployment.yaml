@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nnwebserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nnwebserver
+  template:
+    metadata:
+      labels:
+        app: nnwebserver
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: nnwebserver
+        image: alokaryan/nnwebserver:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
+          name: webserver
